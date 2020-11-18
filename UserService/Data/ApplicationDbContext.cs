@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserService.Enums;
 using UserService.Models;
 
 namespace UserService.Data
@@ -44,6 +45,9 @@ namespace UserService.Data
                     Name="Mike",
                     LastName="Uatzolski"
                 });
+            modelBuilder.Entity<CreditCard>().HasData(
+                new CreditCard(1,"MIKE WATZOLSKI","46546565465465","332",DateTime.UtcNow,CreditCardBrand.Master,1)
+                );
         }
 
     }

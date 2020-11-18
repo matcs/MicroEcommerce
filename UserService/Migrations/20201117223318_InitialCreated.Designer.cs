@@ -10,7 +10,7 @@ using UserService.Data;
 namespace UserService.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201117014912_InitialCreated")]
+    [Migration("20201117223318_InitialCreated")]
     partial class InitialCreated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,26 +28,41 @@ namespace UserService.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreditCardExpiration")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreditCardNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreditCardType")
+                    b.Property<string>("CreditCardBrand")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Cvv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("HolderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CreditCardId");
 
                     b.HasIndex("CustomerId");
 
                     b.ToTable("CreditCards");
+
+                    b.HasData(
+                        new
+                        {
+                            CreditCardId = 1,
+                            CreditCardBrand = "Master",
+                            CustomerId = 1,
+                            Cvv = "332",
+                            ExpirationDate = new DateTime(2020, 11, 17, 22, 33, 17, 553, DateTimeKind.Utc).AddTicks(2513),
+                            HolderName = "MIKE WATZOLSKI",
+                            Number = "46546565465465"
+                        });
                 });
 
             modelBuilder.Entity("UserService.Models.Customer", b =>

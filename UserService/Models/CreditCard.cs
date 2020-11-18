@@ -1,9 +1,13 @@
-﻿using System;
+﻿using EnumsNET;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using UserService.Enums;
 
 namespace UserService.Models
 {
@@ -11,11 +15,12 @@ namespace UserService.Models
     {
         [Key]
         public int CreditCardId { get; set; }
-        public string CreditCardType { get; set; }
-        public string CreditCardNumber { get; set; }
-        public string Code { get; set; }
-        public DateTime CreditCardExpiration { get; set; }
-        
+        public string HolderName { get; set; }
+        public string Number { get; set; }
+        public string Cvv { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public string CreditCardBrand { get; set; }
+
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
 
@@ -23,12 +28,14 @@ namespace UserService.Models
 
         public CreditCard() { }
 
-        public CreditCard(string creditCardType, string creditCardNumber, string code, DateTime creditCardExpiration, int customerId)
+        public CreditCard(int creditCardId, string holderName, string number, string cvv, DateTime expirationDate, CreditCardBrand creditCardBrand, int customerId)
         {
-            CreditCardType = creditCardType;
-            CreditCardNumber = creditCardNumber;
-            Code = code;
-            CreditCardExpiration = creditCardExpiration;
+            CreditCardId = creditCardId;
+            HolderName = holderName;
+            Number = number;
+            Cvv = cvv;
+            ExpirationDate = expirationDate;
+            CreditCardBrand = creditCardBrand.ToString();
             CustomerId = customerId;
         }
     }
