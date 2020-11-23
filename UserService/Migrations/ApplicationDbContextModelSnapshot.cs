@@ -57,7 +57,7 @@ namespace UserService.Migrations
                             CreditCardBrand = "Master",
                             CustomerId = 1,
                             Cvv = "332",
-                            ExpirationDate = new DateTime(2020, 11, 17, 22, 33, 17, 553, DateTimeKind.Utc).AddTicks(2513),
+                            ExpirationDate = new DateTime(2020, 11, 18, 16, 0, 4, 986, DateTimeKind.Utc).AddTicks(205),
                             HolderName = "MIKE WATZOLSKI",
                             Number = "46546565465465"
                         });
@@ -105,6 +105,40 @@ namespace UserService.Migrations
                         });
                 });
 
+            modelBuilder.Entity("UserService.Models.PurchasesHistoric", b =>
+                {
+                    b.Property<int>("PurchasesHistoricId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchasesItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PurchasesHistoricId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("PurchasesHistoric");
+
+                    b.HasData(
+                        new
+                        {
+                            PurchasesHistoricId = 1,
+                            CustomerId = 1,
+                            PurchasesItemId = 1
+                        },
+                        new
+                        {
+                            PurchasesHistoricId = 2,
+                            CustomerId = 1,
+                            PurchasesItemId = 2
+                        });
+                });
+
             modelBuilder.Entity("UserService.Models.CreditCard", b =>
                 {
                     b.HasOne("UserService.Models.Customer", "Customer")
@@ -116,9 +150,22 @@ namespace UserService.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("UserService.Models.PurchasesHistoric", b =>
+                {
+                    b.HasOne("UserService.Models.Customer", "Customer")
+                        .WithMany("PurchasesHistorics")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("UserService.Models.Customer", b =>
                 {
                     b.Navigation("CreditCards");
+
+                    b.Navigation("PurchasesHistorics");
                 });
 #pragma warning restore 612, 618
         }

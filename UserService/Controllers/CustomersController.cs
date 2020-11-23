@@ -30,7 +30,10 @@ namespace UserService.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
-            var customer = await _context.Customers.Include(c => c.CreditCards).FirstOrDefaultAsync(c => c.CustomerId == id);
+            var customer = await _context.Customers
+                .Include(c => c.CreditCards)
+                .Include(c => c.PurchasesHistorics)
+                .FirstOrDefaultAsync(c => c.CustomerId == id);
 
             if (customer == null)
             {

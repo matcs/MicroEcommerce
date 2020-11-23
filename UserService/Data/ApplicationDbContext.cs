@@ -13,7 +13,7 @@ namespace UserService.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-               .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=MicroEcommerce_DB;Trusted_Connection=True;",
+               .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=UserService_DB;Trusted_Connection=True;",
                providerOptions => providerOptions.CommandTimeout(100));
         }
 
@@ -48,6 +48,9 @@ namespace UserService.Data
             modelBuilder.Entity<CreditCard>().HasData(
                 new CreditCard(1,"MIKE WATZOLSKI","46546565465465","332",DateTime.UtcNow,CreditCardBrand.Master,1)
                 );
+            modelBuilder.Entity<PurchasesHistoric>().HasData(
+                new PurchasesHistoric(1,1,1),
+                new PurchasesHistoric(2,2,1));
         }
 
     }

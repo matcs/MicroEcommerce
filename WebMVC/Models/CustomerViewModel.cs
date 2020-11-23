@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UserService.Models
+namespace WebMVC.Models
 {
-    public class Customer
+    public class CustomerViewModel
     {
-        [Key]
         public int CustomerId { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public List<CreditCard> CreditCards { get; set; }
-        public List<PurchasesHistoric> PurchasesHistorics { get; set; }
 
-        public Customer() { }
+        public CustomerViewModel() { }
 
-        public Customer(int customerId, string name, string lastName, string email, string password)
+        public CustomerViewModel(int customerId, string name, string lastName, string email, string password)
         {
             CustomerId = customerId;
             Name = name;
